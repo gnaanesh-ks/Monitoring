@@ -1,0 +1,30 @@
+namespace: flask-app
+
+image:
+  repository: 929170595649.dkr.ecr.us-east-1.amazonaws.com/flask-2tier-app:latest 
+  tag: latest
+  pullPolicy: Always
+
+flask:
+  replicaCount: 2
+  containerPort: 5000
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 5000
+
+database:
+  host: postgres
+  name: flaskdb
+  user: flaskuser
+  password: flaskpassword
+
+postgres:
+  image: postgres:16
+  port: 5432
+  storage: 2Gi
+
+monitoring:
+  enabled: true
+
